@@ -1,3 +1,4 @@
+import "./setup.js"
 import cors from "cors";
 import express from "express";
 import "express-async-errors";

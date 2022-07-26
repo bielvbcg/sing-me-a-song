@@ -4,6 +4,7 @@ import { recommendationService } from "../services/recommendationsService.js";
 import { wrongSchemaError } from "../utils/errorUtils.js";
 
 async function insert(req: Request, res: Response) {
+  console.log("to na controller")
   const validation = recommendationSchema.validate(req.body);
   if (validation.error) {
     throw wrongSchemaError();
