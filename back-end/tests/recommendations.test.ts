@@ -16,7 +16,7 @@ describe("POST /recommendations ", () => {
       .post("/recommendations")
       .send(recommendation)
 
-    expect(response.status).toBe(201)
+    expect(response.statusCode).toBe(201)
   })
 
   it("should return 409 when recommendation name already exists", async () => {
@@ -27,7 +27,7 @@ describe("POST /recommendations ", () => {
       .post("/recommendations")
       .send(recommendation)
 
-    expect(response.status).toBe(409)
+    expect(response.statusCode).toBe(409)
   })
 
   it("should return 422 given wrong body format", async () => {
@@ -37,7 +37,7 @@ describe("POST /recommendations ", () => {
       .post("/recommendations")
       .send(recommendation)
 
-    expect(response.status).toBe(422)
+    expect(response.statusCode).toBe(422)
   })
 })
 
