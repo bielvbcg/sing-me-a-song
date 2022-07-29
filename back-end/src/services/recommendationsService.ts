@@ -83,6 +83,7 @@ function getScoreFilter(random: number) {
 }
 
 async function deleteAll() {
+  console.log("database deleted")
   return await recommendationRepository.deleteAll()
 }
 

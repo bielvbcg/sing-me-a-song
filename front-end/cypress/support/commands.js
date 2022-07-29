@@ -1,25 +1,33 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add("resetRecommendations", () => {
+  cy.log("reseting recommendations");
+  cy.request("POST", "http://localhost:5000/recommendations/reset");
+})
+
+Cypress.Commands.add("createRecommendation", (recommendation) => {
+  cy.request("POST", "http://localhost:5000/recommendations", {
+    name: recommendation.name,
+    youtubeLink: recommendation.youtubeLink
+  })
+    .then(() => true)
+})
+
+Cypress.Commands.add("createRecommendationWithVotes", (recommendation, votes) => {
+  cy.request("POST", "http://localhost:5000/recommendations", {
+    name: recommendation.name,
+    youtubeLink: recommendation.youtubeLink
+  })
+
+    .then(() => {
+      if (votes > 0) {
+        for (let i = 0; i < votes; i++) {
+          cy.request("POST", `http://localhost:5000/recommendations/${recommendation.id}/upvote`)
+        }
+      }
+
+      if (votes < 0) {
+        for (let i = 0; i < (votes < -5 ? 6 : (votes * -1)); i++) {
+          cy.request("POST", `http://localhost:5000/recommendations/${recommendation.id}/downvote`)
+        }
+      }
+    })
+})

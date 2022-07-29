@@ -70,7 +70,7 @@ async function remove(id: number) {
 }
 
 async function deleteAll() {
-  return await prisma.recommendation.deleteMany()
+  await prisma.$executeRaw`TRUNCATE TABLE "recommendations" RESTART IDENTITY;`
 }
 
 export const recommendationRepository = {
