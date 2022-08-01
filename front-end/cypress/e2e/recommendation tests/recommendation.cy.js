@@ -113,7 +113,7 @@ describe("recommendations tests", () => {
     cy.intercept("GET", "/recommendations/random").as("getRandomRecommendation")
     cy.wait("@getRandomRecommendation")
 
-    cy.get("article").should("exist").and("be.visible")
+    cy.get("article").should("exist").and("be.visible").and("have.length", 1)
   })
 
 })

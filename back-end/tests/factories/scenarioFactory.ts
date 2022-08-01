@@ -1,12 +1,14 @@
 import { prisma } from "./../../src/database.js";
 
+import { faker } from "@faker-js/faker"
+
 export const recommendation = {
-  name: "pericles paramore",
+  name: faker.lorem.words(4),
   youtubeLink: "https://www.youtube.com/watch?v=pjd3E426dWQ"
 }
 
 export const wrongRecommendation = {
-  nome: "pericles paramore",
+  nome: faker.lorem.words(4),
   link: "https://www.youtube.com/watch?v=pjd3E426dWQ"
 }
 
@@ -17,5 +19,5 @@ export async function createRecommendation() {
 }
 
 export async function deleteAllData() {
-  await prisma.$executeRaw`TRUNCATE TABLE "recommendations" RESTART IDENTITY;`
+  await prisma.$executeRaw`TRUNCATE TABLE "recommendations" RESTART IDENTITY CASCADE;`
 }
